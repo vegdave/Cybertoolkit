@@ -164,6 +164,7 @@ def bubble_point_T(P_bar, x1, Tc1, Pc1, W1, Tc2, Pc2, W2, k12=0.0, T_guess=None)
     y2 = K2*x2
 
     Tformer = 0.0
+    y1former = y1
     i = 0
 
     while (abs(T - Tformer) > 1e-4 or abs(y1 - y1former) > 1e-6 or i < 20):
@@ -229,6 +230,7 @@ def dew_point_T(P_bar, y1, Tc1, Pc1, W1, Tc2, Pc2, W2, k12=0.0, T_guess=None):
     x2 = y2 / K2
 
     Tformer = 0.0
+    x1former = x1
     i = 0
 
     while (abs(T - Tformer) > 1e-4 or abs(x1 - x1former) > 1e-6 or i < 20):
@@ -281,17 +283,18 @@ def dew_point_T(P_bar, y1, Tc1, Pc1, W1, Tc2, Pc2, W2, k12=0.0, T_guess=None):
 # Results need sanity checking for validity in case of convergence failure or invalid roots
 if __name__ == "__main__":
     
-    # Component 1: N2
-    Tc1, Pc1, W1 = 126.1, 33.94, 0.040
+    # Component 1: CO2
+    Tc1, Pc1, W1 = 304.12, 73.773, 0.22394
 
     # Component 2: C4F7CN 
     Tc2, Pc2, W2 = 385.928, 25.028, 0.352
 
+    # Binary interaction parameter (k12) - set to 0 for ideal mixing
     k12 = 0.0
 
     # Mixture
-    y1 = 0.80  # N2 vapour fraction
-    x1 = 0.80  # N2 liquid fraction
+    y1 = 0.90  # CO2 vapour fraction
+    x1 = 0.90  # CO2 liquid fraction
 
     # Bubble point at 1 bar
     Tbub, y1b, y2b = bubble_point_T(P_bar=1.0, x1=x1,
